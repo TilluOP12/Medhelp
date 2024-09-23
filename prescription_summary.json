@@ -1,0 +1,20 @@
+{
+    "patient": {
+        "name": "John Doe",
+        "age": 21,
+        "gender": "Male"
+    },
+    "prescription": {
+        "diagnosis": "wsd",
+        "consultation_notes": "asd",
+        "followup_schedule": "sad",
+        "medications": [
+            {
+                "medication_name": "asd",
+                "dosage": "asdasd",
+                "frequency": "asd",
+                "duration": "asd"
+            }
+        ]
+    }
+}

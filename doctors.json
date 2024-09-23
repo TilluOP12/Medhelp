@@ -1,0 +1,207 @@
+{
+    "Psychologist": [
+      {
+        "name": "Dr. Seema Pradhan",
+        "qualifications": "MA, MSc, MPhil, DMS, DPC, Master Practitioner on NLP, Advanced Trainee in Psychotherapy",
+        "contact": "9342566772"
+      }
+    ],
+    "Radiology": [
+      { "name": "Dr. S. Pradeep", "qualifications": "MD, DNB", "contact": "9841429645" },
+      { "name": "Dr. Raghav", "qualifications": "DMRD, MD", "contact": "9821423178" },
+      { "name": "Dr. Santhosh", "qualifications": "DMRD, DNB", "contact": "9881278545" },
+      { "name": "Dr. Ramalingaiah", "qualifications": "MD", "contact": "9932154421" },
+      { "name": "Dr. Shankar Reddy", "qualifications": "MD (Radiodiagnosis)", "contact": "9901423991" },
+      { "name": "Dr. Ranitha G", "qualifications": "DMRD", "contact": "9872216982" },
+      { "name": "Dr. Sudhindra Kulkarni", "qualifications": "MD", "contact": "9927582026" },
+      { "name": "Dr. Amita", "qualifications": "MD", "contact": "9445564227" }
+    ],
+    "Rheumatology": [
+      {
+        "name": "Dr. Ramesh Jois",
+        "qualifications": "MD, CCST (UK), MRCP (UK)",
+        "contact": "9945954441"
+      }
+    ],
+    "Laboratory Medicine": [
+      { "name": "Dr. Leena Dash", "qualifications": "MD (Bio-Chemistry)", "contact": "9900651940" },
+      { "name": "Dr. Shantha Krishnamurthy", "qualifications": "MD, DPB", "contact": "9900652185" },
+      { "name": "Dr. B. N. Gokul", "qualifications": "MD (Microbiology)", "contact": "9906599000" },
+      { "name": "Dr. Anita", "qualifications": "MD (Pathology)", "contact": "9935834025" },
+      { "name": "Dr. Sukanya", "qualifications": "MD (Microbiology)", "contact": "9845523410" }
+    ],
+    "Physiotherapy": [
+      {
+        "name": "Mr. Wilfred Samson",
+        "qualifications": "BPT, PGDAR",
+        "contact": "9342839522"
+      }
+    ],
+    "Preventive Health Check": [
+      { "name": "Dr. Laxmi Prasad", "qualifications": "MD, ABIM Certified", "contact": "9980516294" },
+      { "name": "Dr. Nalini", "qualifications": "MD", "contact": "9886725841" },
+      { "name": "Dr. Shalini Joshi", "qualifications": "MD", "contact": "9448926205" },
+      { "name": "Dr. Vince Prakash", "qualifications": "MRACGP", "contact": "9686527221" }
+    ],
+    "Yoga Therapist": [
+      {
+        "name": "Sindhoora S",
+        "qualifications": "B.Sc, PGDY",
+        "contact": "9986207628"
+      }
+    ],
+    "Anesthesiology": [
+      { "name": "Dr. Murali Chakravarthy", "qualifications": "MD, DA, DNB", "contact": "9847153721" },
+      { "name": "Dr. Jaya Prakash", "qualifications": "MD, DNB", "contact": "9874513761" },
+      { "name": "Dr. Kumaraswamy", "qualifications": "MD, DNB", "contact": "9874412145" },
+      { "name": "Dr. Keshav Reddy", "qualifications": "MD, DNB", "contact": "9871128541" },
+      { "name": "Dr. Ramesh", "qualifications": "MD", "contact": "9842542154" },
+      { "name": "Dr. Nandini", "qualifications": "MD, DNB", "contact": "9845712142" },
+      { "name": "Dr. Sudhir", "qualifications": "DA", "contact": "9885715641" },
+      { "name": "Dr. Sunam Subbara K", "qualifications": "MD, DNB, PDCC (Cardiac Anesthesia)", "contact": "9845572156" }
+    ],
+    "Dental": [
+      { "name": "Dr. Sandhya Ramanujam", "qualifications": "BDS (Ind), DDS (USA), CBM (USA), CDA (USA), (PGDMLE-Ind), Aesthetic (Cosmetic) Dentistry and Oral Implantology", "contact": "9880027728" },
+      { "name": "Dr. Chetak Shetty", "qualifications": "MDS - Orthodontia", "contact": "9796041875" },
+      { "name": "Dr. Sunil Vasudev", "qualifications": "MDS - Oral and Maxillofacial Surgery", "contact": "9845642157" },
+      { "name": "Dr. Ishiree", "qualifications": "BDS", "contact": "9482156314" },
+      { "name": "Dr. Raghavendra", "qualifications": "BDS", "contact": "9845151165" },
+      { "name": "Dr. Rajesh Navak", "qualifications": "MDS - Periodontia", "contact": "9345677150" },
+      { "name": "Dr. Keshava Prasad", "qualifications": "MDS", "contact": "9448505157" }
+    ],
+    "ENT Surgery": [
+      { "name": "Dr. Sheelu Srinivas", "qualifications": "MS (ENT), DLO, RCS (London)", "contact": "9900176667" },
+      { "name": "Dr. Naliniesha", "qualifications": "DLO (Oto - Rhino - Laryngology)", "contact": "9448037989" },
+      { "name": "Dr. Venugopal", "qualifications": "DLO (Oto - Laryngology)", "contact": "9480518485" }
+    ],
+    "Audiology & Speech Therapy": [
+      {
+        "name": "Mrs. Komal Karla",
+        "qualifications": "MAHE",
+        "contact": "9916312939"
+      }
+    ],
+    "Dermatology": [
+      { "name": "Dr. Shankar D. Desai", "qualifications": "DVD, MD", "contact": "9902544777" },
+      { "name": "Dr. Sudheendra U", "qualifications": "DVDL, DNB", "contact": "9920534471" },
+      { "name": "Dr. Smita Sharatkumar", "qualifications": "MD, DVD", "contact": "9386481671" }
+    ],
+    "Fetal Medicine": [
+      { "name": "Dr. Chitra P", "qualifications": "PGDMCH, DMLE, PPHC, FELLOWSHIP FETAL MEDICINE", "contact": "9844125842" },
+      { "name": "Dr. Pradeep", "qualifications": "MD RD DNB RD", "contact": "9900117481" },
+      { "name": "Dr. Anita", "qualifications": "MD (RADIOLOGIOSIS)", "contact": "9901113729" },
+      { "name": "Dr. Rajani B S", "qualifications": "MD & DNB", "contact": "9900031812" }
+    ],
+    "Interventional Radiology": [
+      {
+        "name": "Dr. M C Uttapa",
+        "qualifications": "FRCS, FRCR (RADIOLOGY)",
+        "contact": "9920119244"
+      }
+    ],
+    "Ophthalmologist": [
+      { "name": "Dr. Usha Shridhar", "qualifications": "DOMS", "contact": "9448381782" },
+      { "name": "Dr. Mohan Mithare", "qualifications": "MS, DOMS", "contact": "9341218796" }
+    ],
+    "Psychiatry": [
+      { "name": "Dr. M S Dharmendra", "qualifications": "DPM, MRCP, CCST", "contact": "9868789456" },
+      { "name": "Dr. Shobha Krishna", "qualifications": "MRCP", "contact": "9868478137" },
+      { "name": "Dr. Srinivas Reddy", "qualifications": "MRCP", "contact": "9876521487" }
+    ],
+    "Internal Medicine": [
+      { "name": "Dr. Sheela Chakravarthy", "qualifications": "MD", "contact": "9845035871" },
+      { "name": "Dr. Sudha Menon", "qualifications": "MD", "contact": "9845064118" },
+      { "name": "Dr. Anil S Kustagi", "qualifications": "MD", "contact": "9845041372" },
+      { "name": "Dr. Shalini Joshi", "qualifications": "MD INTERNAL MEDICINE", "contact": "9886218274" },
+      { "name": "Dr. Laxmi Prasad", "qualifications": "MD, ABIM Certified", "contact": "9980516294" },
+      { "name": "Dr. Vince Prakash", "qualifications": "MRACGP", "contact": "9686527221" }
+    ],
+    "Chest Medicine & Pulmonology": [
+      {
+        "name": "Dr. Ravindra Mehta",
+        "qualifications": "MD, FCCP, American Board Certified Critical Care Medicine, Pulmonary Med, Sleep Disorder Med American Board at Internal Medicine Certified, Pulmonary Disease & Critical Care Medicine",
+        "contact": "9989019645"
+      },
+      {
+        "name": "Dr. Rajani Bhat",
+        "qualifications": "American Board at Internal Medicine Certified, Pulmonary Disease & Critical Care Medicine",
+        "contact": "9663374871"
+      }
+    ],
+    "Nephrology": [
+      {
+        "name": "Dr. Rajma Sreedhara",
+        "qualifications": "MD, FAP (USA), AB (M. & Nephrology)",
+        "contact": "9845126479"
+      },
+      {
+        "name": "Dr. Aashish Parekh",
+        "qualifications": "MD (Int. Med) & DM (Nephro)",
+        "contact": "9972427675"
+      }
+    ],
+    "Endocrinology": [
+      {
+        "name": "Dr. Prof. C.V. Harinarayan",
+        "qualifications": "MD (Int. Med.), DM (Endocrinology) (AIIMS, New Delhi)",
+        "contact": "9731658138"
+      },
+      {
+        "name": "Dr. C. B. Sridhar",
+        "qualifications": "MD (Gen. Med. - Endocrinology)",
+        "contact": "9845678871"
+      }
+    ],
+    "Oncology": [
+      {
+        "name": "Dr. Linu John Abraham",
+        "qualifications": "MD, DM (Medical Oncology)",
+        "contact": "9632175053"
+      }
+    ],
+    "Paediatrics": [
+      {
+        "name": "Dr. Prakash Vemgal",
+        "qualifications": "DCH (Pediatrics), Fellowship in Neonatology (Australia)",
+        "contact": "9886407567"
+      },
+      { "name": "Dr. Girish", "qualifications": "MD, FAAP", "contact": "9845471871" },
+      {
+        "name": "Dr. Janaki Narayanan",
+        "qualifications": "MD, FAAP",
+        "contact": "9845043187"
+      },
+      { "name": "Dr. Naresh", "qualifications": "DNB", "contact": "9886547197" },
+      {
+        "name": "Dr. Nalini G Shenoy",
+        "qualifications": "MD, DCH",
+        "contact": "9845618794"
+      },
+      { "name": "Dr. Aruna Diwakar", "qualifications": "DNB", "contact": "9845187798" },
+      { "name": "Dr. Hanumanth Rao", "qualifications": "DCH, DNB", "contact": "9845011874" }
+    ],
+    "Paediatric Surgeon": [
+      {
+        "name": "Dr. Gowri Shankar",
+        "qualifications": "MS (Gen. Surgery), M Ch (Paed Surgery), DNB (Paed Surgery), Paed & Neonatologist",
+        "contact": "9845084714"
+      }
+    ],
+    "Vascular Surgery": [
+      {
+        "name": "Dr. K N Nageshushan",
+        "qualifications": "D NB, FVS (Vascular & Endovascular Surgery)",
+        "contact": "9845745815"
+      }
+    ],
+    "Plastic Surgery": [
+      {
+        "name": "Dr. Priyadarshan K",
+        "qualifications": "MS, M Ch, DNB",
+        "contact": "9844076047"
+      },
+      { "name": "Dr. Suheel Cleatus", "qualifications": "FRCS, FICS", "contact": "9845556127" },
+      { "name": "Dr. Madhu Kumar", "qualifications": "MB", "contact": "9740067172" }
+    ]
+  }
+  

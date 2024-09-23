@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Prescription Form</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: #ddd;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.reset {
+    background-color: #dc3545;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.reset:hover {
+    background-color: #c82333;
+}
+
+.patient-info {
+    margin-bottom: 30px;
+}
+
+.patient-info h3 {
+    text-align: left;
+    color: #007bff;
+}
+
+.patient-info p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+<div class="logo">MedHelp Doctor</div>
+<ul class="nav-links">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Appointments</a></li>
+    <li><a href="#">Patients</a></li>
+</ul>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+<h1>e-Prescription Form</h1>
+
+<!-- Patient Information Section -->
+<div class="patient-info">
+    <h3>Patient Information</h3>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Age:</strong> 35</p>
+    <p><strong>Gender:</strong> Male</p>
+    <p><strong>Medical History:</strong> Hypertension, Asthma</p>
+</div>
+
+<!-- Prescription Form -->
+    <!-- Patient Med Help ID -->
+    <h2>Patient Med Help ID</h2>
+    <label for="med_help_id">Med Help ID</label>
+    <input type="text" id="med_help_id" name="med_help_id" required>
+
+    <!-- Prescription Section -->
+    <h2>Prescription Details</h2>
+    <label for="diagnosis">Diagnosis</label>
+    <textarea id="diagnosis" name="diagnosis" rows="3" required></textarea>
+
+    <label for="consultation_notes">Consultation Notes</label>
+    <textarea id="consultation_notes" name="consultation_notes" rows="4" required></textarea>
+
+    <h3>Medications</h3>
+    <label for="medication_name">Medication Name</label>
+    <input type="text" id="medication_name" name="medication_name" required>
+
+    <label for="medication_dosage">Dosage</label>
+    <input type="text" id="medication_dosage" name="medication_dosage" required>
+
+    <label for="medication_frequency">Frequency</label>
+    <input type="text" id="medication_frequency" name="medication_frequency" required>
+
+    <label for="medication_duration">Duration</label>
+    <input type="text" id="medication_duration" name="medication_duration" required>
+
+    <!-- Follow-up -->
+    <label for="followup_schedule">Follow-up Schedule</label>
+    <input type="text" id="followup_schedule" name="followup_schedule">
+
+    <!-- Buttons -->
+    <div class="button-group">
+        <form action="/start_appointment2" method="post">
+
+            <button type="submit" name="action" value="start">Submit</button>
+            <button type="reset" class="reset">Reset</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

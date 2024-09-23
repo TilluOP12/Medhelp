@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .medications ul {
+            list-style: none;
+            padding: 0;
+        }
+        .medications li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prescription Summary</h1>
+
+    <!-- Display Patient Information -->
+    <div class="section">
+        <h2>Patient Information</h2>
+        <p><strong>Name:</strong> {{ prescription.patient.name }}</p>
+        <p><strong>Age:</strong> {{ prescription.patient.age }}</p>
+        <p><strong>Gender:</strong> {{ prescription.patient.gender }}</p>
+    </div>
+
+    <!-- Display Prescription Details -->
+    <div class="section">
+        <h2>Diagnosis</h2>
+        <p>{{ prescription.prescription.diagnosis }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Consultation Notes</h2>
+        <p>{{ prescription.prescription.consultation_notes }}</p>
+    </div>
+
+    <!-- Display Medications -->
+    <div class="section medications">
+        <h2>Medications</h2>
+        <ul>
+            {% for med in prescription.prescription.medications %}
+            <li>
+                <strong>{{ med.medication_name }}</strong><br>
+                Dosage: {{ med.dosage }}<br>
+                Frequency: {{ med.frequency }}<br>
+                Duration: {{ med.duration }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Display Follow-up Information -->
+    <div class="section">
+        <h2>Follow-up Schedule</h2>
+        <p>{{ prescription.prescription.followup_schedule }}</p>
+    </div>
+
+</div>
+
+</body>
+</html>

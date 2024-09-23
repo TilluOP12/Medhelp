@@ -1,0 +1,15 @@
+Prescription Summary
+
+Patient Information
+Name: John Doe
+Age: 21
+Gender: Male
+
+Diagnosis: lsml
+
+
+Consultation Notes: nks
+Medications:
+- sm: cs, cs (for cscs)
+
+Follow-up Schedule: cs

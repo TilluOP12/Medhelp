@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4CAF50;
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-btn {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Appointment Container */
+        .appointment-container {
+            max-width: 900px;
+            margin: 100px auto 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-picker {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .date-slot {
+            text-align: center;
+            cursor: pointer;
+            padding: 10px 15px;
+            background-color: #e8f5e9; /* Light green */
+            border-radius: 8px;
+            width: 60px;
+        }
+
+        .date-slot.selected {
+            background-color: #c8e6c9; /* Slightly darker green */
+            border: 2px solid #4CAF50;
+        }
+
+        .date-slot h2 {
+            margin: 5px 0;
+        }
+
+        .slots-container {
+            margin-top: 30px;
+        }
+
+        .slot {
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slot-info {
+            font-size: 18px;
+        }
+
+        .time-slot {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-time {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-time:hover {
+            background-color: #388e3c; /* Darker green */
+        }
+        
+        .availability-status {
+            font-size: 12px;
+            color: #ff9800; /* Warning color */
+        }
+
+        /* Confirmation button */
+        .confirmation-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .confirmation-btn button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .confirmation-btn button:hover {
+            background-color: #388e3c;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">MedHelp</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Medical History</a></li>
+            <li><a href="#">Book Appointment</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="account">
+            <button class="account-btn">⚙</button>
+        </div>
+    </div>
+
+    <!-- Appointment Container -->
+    <div class="appointment-container">
+        <h2>Select Appointment Date & Time</h2>
+        <div class="date-picker">
+            <div class="date-slot selected"> 
+                <span>Sat</span>
+                <h2>14</h2>
+                <span>SEP</span>
+            </div>
+            <div class="date-slot">
+                <span>Sun</span> 
+                <h2>15</h2> 
+                <span>SEP</span>
+            </div>
+            <div class="date-slot">
+                <span>Mon</span> 
+                <h2>16</h2> 
+                <span>SEP</span>
+            </div>
+            <!-- Add more date slots as needed -->
+        </div>
+
+        <div class="slots-container">
+            <div class="slot">
+                <div class="slot-info">
+                    <h4>Dr. John Doe</h4>
+                    <p>General Physician</p>
+                </div>
+                <div class="time-slot">
+                    <button style="background-color: red;" class="btn-time">10:00 AM</button>
+                    <button class="btn-time">11:00 AM</button>
+                    <button class="btn-time">12:30 PM</button>
+                    <button class="btn-time">02:00 PM</button>
+                    <button style="background-color: red;" class="btn-time">03:30 PM</button>
+                    <button style="background-color: red;" class="btn-time">05:00 PM</button>
+                </div>
+                <div class="availability-status">Non-cancellable</div>
+            </div>
+
+            <div class="slot">
+                <div class="slot-info">
+                    <h4>Dr. John Doe</h4>
+                    <p>General Physician</p>
+                </div>
+                <div class="time-slot">
+                    <button class="btn-time">02:00 PM</button>
+                    <button class="btn-time">03:30 PM</button>
+                    <button style="background-color: red;" class="btn-time">05:00 PM</button>
+                </div>
+                <div class="availability-status">Non-cancellable</div>
+            </div>
+        </div>
+
+        <div class="confirmation-btn">
+            <button>Confirm Appointment</button>
+        </div>
+    </div>
+
+
+<script>
+    // Add dynamic features with JavaScript if necessary
+// For example, a sticky navbar on scroll, animations, etc.
+
+window.addEventListener('scroll', function () {
+const navbar = document.querySelector('.navbar');
+navbar.classList.toggle('sticky', window.scrollY > 0);
+});
+
+</script>
+</body>
+</html>

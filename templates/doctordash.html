@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Interface</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+        }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex: 2;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e0e0e0;
+        }
+
+        .account {
+            position: relative;
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .account-btn {
+            background: #fff;
+            color: #007bff;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .account-btn:hover {
+            background: #f1f1f1;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1;
+            padding: 10px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .account:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Container for bookings */
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bookings-header {
+            font-size: 1.8rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .booking-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .booking-card h4 {
+            color: #007bff;
+            margin: 0;
+        }
+
+        .booking-card p {
+            color: #333;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+
+        .booking-card .time-slot {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Submit and Action buttons */
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .submit-button button {
+            padding: 15px 40px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+        .submit-button button:hover {
+            background: #0056b3;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .action-buttons button.cancel {
+            background-color: #dc3545;
+        }
+
+        .action-buttons button:hover {
+            background-color: #218838;
+        }
+
+        .action-buttons button.cancel:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+ <!-- Navbar -->
+ <div class="navbar">
+    <div class="logo">Doctor's Panel</div>
+    <ul class="nav-links">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Appointments</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+    <div class="account">
+        <button class="account-btn">⚙</button>
+        <div class="dropdown-content">
+            <a href="#">My Profile</a>
+            <a href="#">Log Out</a>
+        </div>
+    </div>
+</div>
+
+<!-- Container for Bookings -->
+<div class="container">
+    <h1 class="bookings-header">Today's Appointments</h1>
+    <div class="booking-list">
+        <div class="booking-card">
+            <form action="/start_appointment" method="post">
+                <h4>John Doe</h4>
+                <p>Specialty: Rheumatology</p>
+                <p>Time: <span class="time-slot">10:00 AM - 10:30 AM</span></p>
+                <p>Symptoms: Joint pain, swelling</p>
+                <input type="hidden" name="patient_name" value="John Doe">
+                <input type="hidden" name="specialty" value="Rheumatology">
+                <input type="hidden" name="time_slot" value="10:00 AM - 10:30 AM">
+                <input type="hidden" name="symptoms" value="Joint pain, swelling">
+                <div class="action-buttons">
+                    <button type="submit" name="action" value="start">Start Appointment</button>
+                    <button type="submit" name="action" value="cancel" class="cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <div class="booking-card">
+            <form action="/start_appointment" method="post">
+                <h4>Jane Smith</h4>
+                <p>Specialty: Radiology</p>
+                <p>Time: <span class="time-slot">11:00 AM - 11:30 AM</span></p>
+                <p>Symptoms: Chest pain, dizziness</p>
+                <input type="hidden" name="patient_name" value="Jane Smith">
+                <input type="hidden" name="specialty" value="Radiology">
+                <input type="hidden" name="time_slot" value="11:00 AM - 11:30 AM">
+                <input type="hidden" name="symptoms" value="Chest pain, dizziness">
+                <div class="action-buttons">
+                    <button type="submit" name="action" value="start">Start Appointment</button>
+                    <button type="submit" name="action" value="cancel" class="cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <!-- More booking cards here -->
+    </div>
+
+    <!-- Button to view all appointments -->
+    <div class="submit-button">
+        <button>View All Appointments</button>
+    </div>
+</div>
+
+</body>
+</html>
