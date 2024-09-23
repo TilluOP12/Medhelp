@@ -1,3 +1,4 @@
+
 import os
 import json
 import datetime
@@ -62,6 +63,7 @@ class Routes:
         self.app.add_url_rule('/upload/medication', 'upload_medication', self.upload_medication, methods=['POST'])
         self.app.add_url_rule('/upload/test', 'upload_test', self.upload_test, methods=['POST'])
         self.app.add_url_rule('/prescription_summary', 'display_prescription', self.display_prescription)
+        self.app.add_url_rule('/start_appointment2','start_appointment2',self.start_appointment2    , methods=['POST'])
 
     def home(self):
         return render_template('index.html')
@@ -194,7 +196,32 @@ class Routes:
         
         # Pass the prescription data to the template
         return render_template('med-history.html', prescription=prescription_data['prescription'])
+    def start_appointment2(self):
+        # Retrieve form data
+        med_help_id = request.form.get('med_help_id')
+        diagnosis = request.form.get('diagnosis')
+        consultation_notes = request.form.get('consultation_notes')
+        medication_name = request.form.get('medication_name')
+        medication_dosage = request.form.get('medication_dosage')
+        medication_frequency = request.form.get('medication_frequency')
+        medication_duration = request.form.get('medication_duration')
+        followup_schedule = request.form.get('followup_schedule')
+        date=request.form.get("date")
 
+        # Process the form data (for example, save it to a database)
+        # For now, just returning a JSON response with the data
+        return jsonify({
+            'message': 'Appointment started successfully!',
+            'med_help_id': med_help_id,
+            'diagnosis': diagnosis,
+            'consultation_notes': consultation_notes,
+            'medication_name': medication_name,
+            'medication_dosage': medication_dosage,
+            'medication_frequency': medication_frequency,
+            'medication_duration': medication_duration,
+            'followup_schedule': followup_schedule,
+            'date':date
+        })
 
 # Instantiate the Routes class
 Routes(app)
