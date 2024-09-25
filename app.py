@@ -1,4 +1,3 @@
-
 import os
 import json
 import datetime
@@ -49,13 +48,13 @@ class Routes:
 
     def register_routes(self):
         self.app.add_url_rule('/', 'home', self.home)
+        self.app.add_url_rule('/useracc', 'useracc', self.useracc)
         self.app.add_url_rule('/index', 'index', self.home)
         self.app.add_url_rule('/login', 'login', self.login, methods=['GET', 'POST'])
         self.app.add_url_rule('/signup', 'signup', self.signup, methods=['GET', 'POST'])
         self.app.add_url_rule('/book_appointment', 'book_appointment', self.book_appointment)
         self.app.add_url_rule('/med_history', 'med_history', self.med_history)
         self.app.add_url_rule('/get_recommendation', 'get_recommendation', self.get_recommendation, methods=['POST'])
-        self.app.add_url_rule('/confirm', 'confirm', self.confirm)
         self.app.add_url_rule('/doctordash', 'doctordash', self.doctordash)
         self.app.add_url_rule('/confirm_doctor', 'confirm_doctor', self.confirm_doctor)
         self.app.add_url_rule('/form', 'form', self.form)
@@ -63,18 +62,13 @@ class Routes:
         self.app.add_url_rule('/upload/medication', 'upload_medication', self.upload_medication, methods=['POST'])
         self.app.add_url_rule('/upload/test', 'upload_test', self.upload_test, methods=['POST'])
         self.app.add_url_rule('/prescription_summary', 'display_prescription', self.display_prescription)
-        self.app.add_url_rule('/start_appointment2','start_appointment2',self.start_appointment2    , methods=['POST'])
+        self.app.add_url_rule('/userlogin', 'userlogin', self.userlogin, methods=['GET', 'POST'])
+
 
     def home(self):
         return render_template('index.html')
 
-    def confirm(self):
-        doctor_name = request.args.get('doctor')
-        return render_template('confirm.html', doctor=doctor_name)
-
-    def confirm_doctor(self):
-        doctor_name = request.args.get('doctor')
-        return render_template('confirm.html', doctor=doctor_name)
+    
 
     def doctordash(self):
         return render_template('doctordash.html')
@@ -84,11 +78,28 @@ class Routes:
 
     def book_appointment(self):
         return render_template('book-appointment.html')
+    
+    def useracc(self):
+        return render_template('useracc.html')
+    
+    def userlogin(self):
+        if request.method == 'POST':
+            username1 = request.form.get('username_user')  # Use parentheses () with get
+            password1 = request.form.get('password_user')  # Use parentheses () with get
+            
+            # Check if username and password match
+            if username1 == "admin1" and password1 == "password1":
+                return redirect(url_for('useracc'))
+            else:
+                # Display message if credentials are invalid
+                return "Invalid username or password"
+        return render_template('userlogin.html')
 
     def login(self):
         if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
+            username = request.form.get('username_doc')  # Use parentheses () with get
+            password = request.form.get('password_doc')  # Use parentheses () with get
+            
             if username == "admin" and password == "password":
                 return redirect(url_for('doctordash'))
             else:
@@ -178,6 +189,20 @@ class Routes:
 
     def med_history(self):
         return render_template('med-history.html')
+    
+    def confirm_doctor(self):
+    # Get the doctor's name from the query parameters
+        doctor_name = request.args.get('doctor')
+        doctor_qualifications = request.args.get('qualifications')
+
+        # Check if doctor_name is provided
+        if not doctor_name:
+            return "Doctor name is missing", 400
+
+        # Pass the doctor's name to the confirm.html template
+        return render_template('confirm.html', doctor=doctor_name, qualifications=doctor_qualifications)
+
+           
 
     def display_prescription(self):
         json_filename = 'prescription_summary.json'
@@ -196,32 +221,7 @@ class Routes:
         
         # Pass the prescription data to the template
         return render_template('med-history.html', prescription=prescription_data['prescription'])
-    def start_appointment2(self):
-        # Retrieve form data
-        med_help_id = request.form.get('med_help_id')
-        diagnosis = request.form.get('diagnosis')
-        consultation_notes = request.form.get('consultation_notes')
-        medication_name = request.form.get('medication_name')
-        medication_dosage = request.form.get('medication_dosage')
-        medication_frequency = request.form.get('medication_frequency')
-        medication_duration = request.form.get('medication_duration')
-        followup_schedule = request.form.get('followup_schedule')
-        date=request.form.get("date")
 
-        # Process the form data (for example, save it to a database)
-        # For now, just returning a JSON response with the data
-        return jsonify({
-            'message': 'Appointment started successfully!',
-            'med_help_id': med_help_id,
-            'diagnosis': diagnosis,
-            'consultation_notes': consultation_notes,
-            'medication_name': medication_name,
-            'medication_dosage': medication_dosage,
-            'medication_frequency': medication_frequency,
-            'medication_duration': medication_duration,
-            'followup_schedule': followup_schedule,
-            'date':date
-        })
 
 # Instantiate the Routes class
 Routes(app)
