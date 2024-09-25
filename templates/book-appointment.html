@@ -232,45 +232,47 @@
     </style>
 </head>
 <body>
- <!-- Navbar -->
- <div class="navbar">
-    <div class="logo">MedHelp</div>
-    <ul class="nav-links">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('med_history') }}">Medical History</a></li>
-        <li><a href="{{ url_for('book_appointment') }}">Book Appointment</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-    <div class="account">
-        <button class="account-btn">⚙</button>
-        <div class="dropdown-content">
-            <a href="#">My Profile</a>
-            <a href="{{ url_for('med_history') }}">Medical History</a>
-            <a href="{{ url_for('book_appointment') }}">Nearby Doctors</a>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <h1>Check Your Symptoms</h1>
-
-    <div class="chatbot-section">
-        <div class="chatbot">
-            <input type="text" id="symptom-input" placeholder="Enter your symptoms...">
-            <button onclick="submitSymptoms()">Submit</button>
-        </div>
-        <div class="output-section" id="output-paragraph">
-            <!-- Output paragraph will be displayed here -->
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">MedHelp</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('med_history') }}">Medical History</a></li>
+            <li><a href="{{ url_for('book_appointment') }}">Book Appointment</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="account">
+            <button class="account-btn">⚙</button>
+            <div class="dropdown-content">
+                <a href="#">My Profile</a>
+                <a href="{{ url_for('med_history') }}">Medical History</a>
+                <a href="{{ url_for('book_appointment') }}">Nearby Doctors</a>
+            </div>
         </div>
     </div>
 
-    <div class="doctor-cards" id="doctor-cards">
-        <!-- Doctor cards will be generated here -->
+    <div class="container">
+        <h1>Check Your Symptoms</h1>
+
+        <div class="chatbot-section">
+            <div class="chatbot">
+                <input type="text" id="symptom-input" placeholder="Enter your symptoms...">
+                <button onclick="submitSymptoms()">Submit</button>
+            </div>
+            <div class="output-section" id="output-paragraph">
+                <!-- Output paragraph will be displayed here -->
+            </div>
+        </div>
+
+        <div class="doctor-cards" id="doctor-cards">
+            <!-- Doctor cards will be generated here -->
+        </div>
+        
+        <div class="submit-button">
+            <button onclick="submitSymptoms()">List of all Doctors?</button>
+        </div>
     </div>
-    
-    <div class="submit-button">
-        <button onclick="submitSymptoms()">List of all Doctors?</button>
-    </div>
-    
+
     <script>
         async function submitSymptoms() {
             const symptoms = document.getElementById('symptom-input').value;
@@ -297,19 +299,16 @@
                         <h3>${doctor.name}</h3>
                         <p>${doctor.qualifications}</p>
                         <p>Contact: ${doctor.contact}</p>
-                        <button onclick="redirectToConfirm('${doctor.name}')">Book Appointment</button>
+                        <button onclick="bookAppointment('${doctor.name}')">Book Appointment</button>
                     </div>
                 </div>
             `).join('');
         }
-    
+
         // Function to redirect to the confirm page
-        function redirectToConfirm(doctorName) {
-            window.location.href = `/confirm_doctor?doctor=${encodeURIComponent(doctor.name)}`;
+        function bookAppointment(doctorName) {
+            window.location.href = `/confirm_doctor?doctor=${encodeURIComponent(doctorName)}`;
         }
     </script>
-    
-    
-
 </body>
 </html>

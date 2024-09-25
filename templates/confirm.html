@@ -49,19 +49,55 @@
         }
 
         .account {
+            position: relative;
+            flex: 1;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: flex-end;
         }
 
         .account-btn {
             background: #4CAF50;
             border: none;
-            color: white;
+            color: #fff;
             font-size: 1.5rem;
             padding: 10px;
             border-radius: 50%;
             cursor: pointer;
+            transition: background 0.3s;
+            margin-right: 40px;
+        }
+
+        .account-btn:hover {
+            background: #45a049;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1;
+            padding: 10px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .account:hover .dropdown-content {
+            display: block;
         }
 
         /* Appointment Container */
@@ -119,6 +155,7 @@
         .time-slot {
             display: flex;
             gap: 10px;
+            margin-top: 270px;
         }
 
         .btn-time {
@@ -136,6 +173,7 @@
         }
         
         .availability-status {
+            margin-top: 270px;
             font-size: 12px;
             color: #ff9800; /* Warning color */
         }
@@ -159,6 +197,10 @@
         .confirmation-btn button:hover {
             background-color: #388e3c;
         }
+        .btn-time.selected {
+            background-color: #143315;
+        }
+
 
     </style>
 </head>
@@ -175,6 +217,11 @@
         </ul>
         <div class="account">
             <button class="account-btn">⚙</button>
+            <div class="dropdown-content">
+                <a href="#">My Profile</a>
+                <a href="{{ url_for('login') }}">Doctor-Signin</a>
+                <a href="{{ url_for('book_appointment') }}">Nearby Doctors</a>
+            </div>
         </div>
     </div>
 
@@ -182,17 +229,17 @@
     <div class="appointment-container">
         <h2>Select Appointment Date & Time</h2>
         <div class="date-picker">
-            <div class="date-slot selected"> 
+            <div class="date-slot selected" onclick="selectDate(this)"> 
                 <span>Sat</span>
                 <h2>14</h2>
                 <span>SEP</span>
             </div>
-            <div class="date-slot">
+            <div class="date-slot" onclick="selectDate(this)">
                 <span>Sun</span> 
                 <h2>15</h2> 
                 <span>SEP</span>
             </div>
-            <div class="date-slot">
+            <div class="date-slot" onclick="selectDate(this)">
                 <span>Mon</span> 
                 <h2>16</h2> 
                 <span>SEP</span>
@@ -203,33 +250,22 @@
         <div class="slots-container">
             <div class="slot">
                 <div class="slot-info">
-                    <h4>Dr. John Doe</h4>
-                    <p>General Physician</p>
+                    <h4>Doctor: {{ doctor }}</h4>
+                    <p><strong>Qualifications:</strong> {{ qualifications }}</p>
+                    <p><strong>Contact:</strong> {{ doctor['contact'] }}</p>
                 </div>
                 <div class="time-slot">
-                    <button style="background-color: red;" class="btn-time">10:00 AM</button>
-                    <button class="btn-time">11:00 AM</button>
-                    <button class="btn-time">12:30 PM</button>
-                    <button class="btn-time">02:00 PM</button>
-                    <button style="background-color: red;" class="btn-time">03:30 PM</button>
-                    <button style="background-color: red;" class="btn-time">05:00 PM</button>
+                    <button style="background-color: red; " class="btn-time"onclick="selectTime(this)">10:00 AM</button>
+                    <button class="btn-time" onclick="selectTime(this)">11:00 AM</button>
+                    <button class="btn-time"onclick="selectTime(this)">12:30 PM</button>
+                    <button class="btn-time" onclick="selectTime(this)">02:00 PM</button>
+                    <button style="background-color: red;" class="btn-time" onclick="selectTime(this)">03:30 PM</button>
+                    <button style="background-color: red;" class="btn-time" onclick="selectTime(this)">05:00 PM</button>
                 </div>
                 <div class="availability-status">Non-cancellable</div>
             </div>
 
-            <div class="slot">
-                <div class="slot-info">
-                    <h4>Dr. John Doe</h4>
-                    <p>General Physician</p>
-                </div>
-                <div class="time-slot">
-                    <button class="btn-time">02:00 PM</button>
-                    <button class="btn-time">03:30 PM</button>
-                    <button style="background-color: red;" class="btn-time">05:00 PM</button>
-                </div>
-                <div class="availability-status">Non-cancellable</div>
-            </div>
-        </div>
+           
 
         <div class="confirmation-btn">
             <button>Confirm Appointment</button>
@@ -240,6 +276,24 @@
 <script>
     // Add dynamic features with JavaScript if necessary
 // For example, a sticky navbar on scroll, animations, etc.
+function selectDate(element) {
+            // Deselect all date slots
+            document.querySelectorAll('.date-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            // Select the clicked date
+            element.classList.add('selected');
+        }
+
+        // Handle selecting time slots
+        function selectTime(element) {
+            // Deselect all time slots
+            document.querySelectorAll('.btn-time').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            // Select the clicked time slot
+            element.classList.add('selected');
+        }
 
 window.addEventListener('scroll', function () {
 const navbar = document.querySelector('.navbar');

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedHelp - Medical AI Startup</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffeb3b;
+        }
+
+        .navbar .account {
+            position: relative;
+        }
+
+        .navbar .account .account-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .navbar .account .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .navbar .account:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar .account .dropdown-content a {
+            color: #007bff;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .account .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container h2, .container h3 {
+            color: #007bff;
+        }
+
+        .input-container, .medications-section, .prescribed-tests-section, .upload-section, .prescription, .comment-section {
+            margin-bottom: 2rem;
+        }
+
+        .input-container label, .medications-section label, .prescribed-tests-section label, .upload-section label, .prescription label, .comment-section label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .input-container input, .input-container select, .medications-section textarea, .prescribed-tests-section textarea, .upload-section textarea, .prescription textarea, .comment-section textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn, .btn-submit, .btn-submit-2 {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover, .btn-submit:hover, .btn-submit-2:hover {
+            background-color: #0056b3;
+        }
+
+        .upload-box {
+            margin-top: 1rem;
+        }
+
+        .pdf-preview, .comment-preview {
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .buymeds, .booktests {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .buymeds p, .booktests p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">MedHelp</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('med_history') }}">Medical History</a></li>
+            <li><a href="{{ url_for('book_appointment') }}">Book Appointment</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="account">
+            <button class="account-btn">⚙</button>
+            <div class="dropdown-content">
+                <a href="#">My Profile</a>
+                <a href="{{ url_for('login') }}">Doctor-Signin</a>
+                <a href="{{ url_for('book_appointment') }}">Nearby Doctors</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Medical History Header -->
+        <div class="medical-history-header">
+            <h2>Track Your Medical History</h2>
+        </div>
+        <div class="input-container">
+            <label for="new-date">New Date:</label>
+            <input type="date" id="new-date">
+
+            <label for="new-problem">New Problem:</label>
+            <input type="text" id="new-problem" placeholder="Enter new problem">
+
+            <button class="btn" onclick="addNewProblem()">Add to Dropdown</button>
+        </div>
+
+        <label for="date">Select Date/Problem:</label>
+        <select id="date">
+            <option value="2024-07-25 - Headache">2024-07-25 - Headache</option>
+            <option value="2024-09-01 - Cold">2024-09-01 - Cold</option>
+            <option value="2024-08-15 - Fever">2024-08-15 - Fever</option>
+        </select>
+
+        <!-- Medications Section -->
+        <div class="medications-section">
+            <h3>Medications</h3>
+            <div class="medications-box">
+                <p>No medications submitted yet.</p>
+                <div class="upload-box">
+                    <label for="medical-test-1">Upload Medical Test (PDF):</label>
+                    <input type="file" id="medical-test-1" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-1')">
+                </div>
+            </div>
+            <div class="pdf-preview" id="pdf-preview-1"></div>
+            <label for="use-e-prescription">
+                <input type="checkbox" id="use-e-prescription" onclick="toggleEPrescriptionForm()"> Fill Medication in Form Instead
+            </label>
+            <div id="e-prescription-form" style="display:none; margin-top: 20px;">
+                <h3>E-Prescription Form</h3>
+                <label for="medicine-1">Medicine 1:</label>
+                <textarea id="medicine-1" rows="2" placeholder="Medicine 1"></textarea>
+                <label for="medicine-2">Medicine 2:</label>
+                <textarea id="medicine-2" rows="2" placeholder="Medicine 2"></textarea>
+                <label for="medicine-3">Medicine 3:</label>
+                <textarea id="medicine-3" rows="2" placeholder="Medicine 3"></textarea>
+                <label for="doctor-notes">Additional Notes:</label>
+                <textarea id="doctor-notes" rows="4" placeholder="Any additional notes"></textarea>
+            </div>
+            <button type="button" class="btn-submit" onclick="uploadFile('medical-test-1', '/upload/medication')">Upload Medication</button>
+            <div class="buymeds">
+                <p>Get medicines at your Home! Click below to Order</p>
+                <button class="btn-submit-2">Order Now!</button>
+            </div>
+        </div>
+
+        <!-- Prescribed Tests Section -->
+        <div class="prescribed-tests-section">
+            <h3>Prescribed Tests</h3>
+            <div class="prescribed-box">
+                <ul>
+                    <li id="medical-record-status">X-Ray: Not Submitted</li>
+                    <div class="upload-box">
+                        <label for="medical-test-2">Upload X-Ray Test (PDF):</label>
+                        <input type="file" id="medical-test-2" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-2')">
+                    </div>
+                    <li id="prescription-status">Blood Test: Not Submitted</li>
+                    <div class="upload-box">
+                        <label for="medical-test-3">Upload Blood Test (PDF):</label>
+                        <input type="file" id="medical-test-3" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-3')">
+                    </div>
+                </ul>
+                <div class="pdf-preview" id="pdf-preview-2"></div>
+                <div class="pdf-preview" id="pdf-preview-3"></div>
+            </div>
+            <button type="button" class="btn-submit" onclick="uploadFile('medical-test-2', '/upload/test')">Upload Test</button>
+            <div class="booktests">
+                <p>Get Tests done at your Home! Click below to Book a Slot</p>
+                <button class="btn-submit-2">Book Now!</button>
+            </div>
+        </div>
+
+        <!-- Medical Test Upload Section -->
+        <div class="upload-section">
+            <h3>Upload Old Medical Test</h3>
+            <div class="upload-box">
+                <label for="medical-test-4">Upload Medical Test (PDF):</label>
+                <input type="file" id="medical-test-4" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-4')">
+            </div>
+            <button type="button" class="btn-submit" onclick="uploadFile('medical-test-4', '/upload/test')">Upload Test</button>
+            <div class="pdf-preview" id="pdf-preview-4"></div>
+        </div>
+
+        <!-- E-Prescription Form -->
+        <div class="prescription">
+            <h3>Prescriptions</h3>
+            <div class="medications-box">
+                <p>No Prescription submitted yet.</p>
+                <p style="font-style: italic; font-size: small;">Write a hassle-free prescription with the E-Prescription method! Click Below to Toggle</p>
+                <div class="upload-box">
+                    <label for="prescription-upload">Upload prescription (PNG):</label>
+                    <input type="file" id="prescription-upload" name="prescription" accept="image/*" onchange="previewImage(this, 'prescription-preview')">
+                </div>
+            </div>
+            <label for="use-e-prescription-2">
+                <input type="checkbox" id="use-e-prescription-2" onclick="toggleEPrescriptionForm2()"> Fill Medication in Form Instead
+            </label>
+            <div id="e-prescription-form-2" style="display:none; margin-top: 20px;">
+                <h3>E-Prescription Form</h3>
+                <label for="symptoms">Symptoms:</label>
+                <textarea id="symptoms" name="symptoms" rows="4" placeholder="Describe your symptoms"></textarea>
+                <label for="medications">Medications Prescribed:</label>
+                <textarea id="medications" name="medications" rows="4" placeholder="List the medications"></textarea>
+                <label for="additional-comments">Additional Comments:</label>
+                <textarea id="additional-comments" name="additional-comments" rows="4" placeholder="Additional comments"></textarea>
+                <button type="submit" class="btn-submit">Submit E-Prescription</button>
+            </div>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+            <h3>Add Comments</h3>
+            <textarea id="commentInput" placeholder="Add your comments here..."></textarea>
+            <button type="button" class="btn-submit" onclick="submitComment()">Submit Comment</button>
+            <div class="comment-preview" id="commentPreview" style="display:none; margin-top: 20px;">
+                <h4>Comment Preview:</h4>
+                <p id="commentText"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleEPrescriptionForm() {
+            var form = document.getElementById('e-prescription-form');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        function toggleEPrescriptionForm2() {
+            var form = document.getElementById('e-prescription-form-2');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        function previewPDF(input, previewId) {
+            var file = input.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var preview = document.getElementById(previewId);
+                preview.innerHTML = '<embed src="' + e.target.result + '" width="100%" height="500px" />';
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function previewImage(input, previewId) {
+            var file = input.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var preview = document.getElementById(previewId);
+                preview.innerHTML = '<img src="' + e.target.result + '" width="100%" />';
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function submitComment() {
+            var commentInput = document.getElementById('commentInput');
+            var commentText = document.getElementById('commentText');
+            var commentPreview = document.getElementById('commentPreview');
+            commentText.innerText = commentInput.value;
+            commentPreview.style.display = 'block';
+        }
+
+        function uploadFile(inputId, url) {
+            var input = document.getElementById(inputId);
+            var file = input.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('File uploaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('File upload failed.');
+            });
+        }
+
+        function addNewProblem() {
+            var newDate = document.getElementById('new-date').value;
+            var newProblem = document.getElementById('new-problem').value;
+            var select = document.getElementById('date');
+            var option = document.createElement('option');
+            option.value = `${newDate} - ${newProblem}`;
+            option.text = `${newDate} - ${newProblem}`;
+            select.add(option);
+            alert('New problem added to dropdown.');
+        }
+    </script>
+
+</body>
+</html>

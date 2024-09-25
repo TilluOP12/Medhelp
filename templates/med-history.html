@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #e0f7fa, #a7ffeb);
             color: #333;
             padding: 20px;
         }
@@ -27,6 +27,9 @@
             grid-template-columns: 1fr 1fr;
             grid-gap: 30px;
         }
+
+
+    
 
         .navbar {
         display: flex;
@@ -55,6 +58,9 @@
         .navbar ul li {
             margin-right: 20px;
         }
+        .navbar ul li a:hover {
+            color: #ffeb3b;
+        }
 
         .navbar ul li a {
             color: white;
@@ -64,11 +70,77 @@
 
         .medical-history-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-top: 100px;
+            margin-bottom: 30px;
         }
 
         .medical-history-header h2 {
-            color: #4CAF50;
+            color: #00c853;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #00c853;
+            box-shadow: 0 0 5px rgba(0, 200, 83, 0.5);
+        }
+
+        .upload-section, .prescribed-tests-section, .medications-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .upload-box, .prescribed-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px dashed #00c853;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .upload-box:hover, .prescribed-box:hover {
+            background-color: #e8f5e9;
+            border: 1px solid #00c853;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00c853, #00e676);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #00e676, #69f0ae);
         }
 
         .history-form {
@@ -314,6 +386,30 @@
         .account:hover .dropdown-content {
             display: block;
         }
+        .image-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .image-card {
+            width: 30%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .responsive-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .responsive-image:hover {
+            transform: scale(1.05);
+        }
 
         
         /* Responsiveness */
@@ -492,6 +588,8 @@
                 <button class="btn-submit-2">Book Now!</button>
             </div>
         </div>
+
+        
 
 
         <!-- Medical Test Upload Section -->
