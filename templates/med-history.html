@@ -521,11 +521,10 @@
         </div>
         
         <label for="date">Select Date/Problem:</label>
-        <select id="date">
-            <option value="Sept 1, 2024 - Headache">2024-07-25 - Headache</option>
-            <option value="Aug 15, 2024 - Cold">2024-09-01 - Cold</option>
-            <option value="July 25, 2024 - Fever">2024-08-15 - Fever</option>
+        <select id="date" onchange="changeSelectedDate()">
+            <option value="" disabled selected>Select Date/Problem</option>
         </select>
+
         
 
         <!-- Medications Section -->
@@ -655,6 +654,13 @@
     </div>
 </div>
 
+<div class="file-section">
+    <h3>Files for the Selected Date</h3>
+    <div id="file-display">
+        <!-- Files will be dynamically loaded here -->
+    </div>
+</div>
+
 <script>
     function submitComment() {
         const comment = document.getElementById('commentInput').value;
@@ -666,24 +672,24 @@
     }
     let uploadCount = 1;
 
-        function addMore() {
-            uploadCount++;
-            const uploadSection = document.getElementById('uploadSection');
-            const newUploadBox = document.createElement('div');
-            newUploadBox.classList.add('upload-box');
-            newUploadBox.innerHTML = `
-                <label for="medical-test-${uploadCount}">Upload Medical Test (PDF):</label>
-                <input type="file" id="medical-test-${uploadCount}" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-${uploadCount}')">
-                <p>Upload your latest medical test reports here.</p>
-            `;
-            const newPreview = document.createElement('div');
-            newPreview.classList.add('pdf-preview');
-            newPreview.id = `pdf-preview-${uploadCount}`;
-            uploadSection.appendChild(newUploadBox);
-            uploadSection.appendChild(newPreview);
-        }
+    function addMore() {
+        uploadCount++;
+        const uploadSection = document.getElementById('uploadSection');
+        const newUploadBox = document.createElement('div');
+        newUploadBox.classList.add('upload-box');
+        newUploadBox.innerHTML = `
+            <label for="medical-test-${uploadCount}">Upload Medical Test (PDF):</label>
+            <input type="file" id="medical-test-${uploadCount}" name="medical-test[]" accept=".pdf" onchange="previewPDF(this, 'pdf-preview-${uploadCount}')">
+            <p>Upload your latest medical test reports here.</p>
+        `;
+        const newPreview = document.createElement('div');
+        newPreview.classList.add('pdf-preview');
+        newPreview.id = `pdf-preview-${uploadCount}`;
+        uploadSection.appendChild(newUploadBox);
+        uploadSection.appendChild(newPreview);
+    }
 
-        function previewPDF(input, previewId) {
+    function previewPDF(input, previewId) {
         const file = input.files[0];
         if (file && file.type === 'application/pdf') {
             const reader = new FileReader();
@@ -720,7 +726,8 @@
             alert('Please upload a valid image.');
         }
     }
-        function updateSubmissionStatus(inputId, statusId, fileType) {
+ 
+    function updateSubmissionStatus(inputId, statusId, fileType) {
         const input = document.getElementById(inputId);
         const status = document.getElementById(statusId);
         if (input.files.length > 0) {
@@ -729,14 +736,16 @@
             status.textContent = `${fileType}: Not Submitted`;
         }
     }
+ 
     function toggleEPrescriptionForm() {
-    const ePrescriptionForm = document.getElementById('e-prescription-form');
-    if (document.getElementById('use-e-prescription').checked) {
-        ePrescriptionForm.style.display = 'block';
-    } else {
-        ePrescriptionForm.style.display = 'none';
+        const ePrescriptionForm = document.getElementById('e-prescription-form');
+        if (document.getElementById('use-e-prescription').checked) {
+            ePrescriptionForm.style.display = 'block';
+        } else {
+            ePrescriptionForm.style.display = 'none';
+        }
     }
-    }
+ 
     function toggleEPrescriptionForm2() {
         const ePrescriptionForm = document.getElementById('e-prescription-form');
         if (document.getElementById('use-e-prescription').checked) {
@@ -745,20 +754,21 @@
             ePrescriptionForm.style.display = 'none';
         }
     }
+ 
     window.addEventListener('scroll', function () {
         const navbar = document.querySelector('.navbar');
         navbar.classList.toggle('sticky', window.scrollY > 0);
     });
 
 
-        document.getElementById('medical-test-1').addEventListener('change', function() {
-            updateSubmissionStatus('medical-test-1', 'medical-record-status', 'Medical Record');
-        });
+    document.getElementById('medical-test-1').addEventListener('change', function() {
+        updateSubmissionStatus('medical-test-1', 'medical-record-status', 'Medical Record');
+    });
 
-        document.getElementById('prescription').addEventListener('change', function() {
-            updateSubmissionStatus('prescription', 'prescription-status', 'Prescription');
-        });
-        
+    document.getElementById('prescription').addEventListener('change', function() {
+        updateSubmissionStatus('prescription', 'prescription-status', 'Prescription');
+    });
+    
     function toggleEPrescriptionForm() {
         const ePrescriptionForm = document.getElementById('e-prescription-form');
         if (document.getElementById('use-e-prescription').checked) {
@@ -766,7 +776,8 @@
         } else {
             ePrescriptionForm.style.display = 'none';
         }
-}
+    }
+    
     function addNewProblem() {
         var newDate = document.getElementById('new-date').value;
         var newProblem = document.getElementById('new-problem').value;
@@ -777,32 +788,80 @@
             return;
         }
 
-    // Format the option value
-    var newOptionText = newDate + ' - ' + newProblem;
-    var newOption = document.createElement('option');
-    newOption.value = newOptionText;
-    newOption.text = newOptionText;
+        // Format the option value
+        var newOptionText = newDate + ' - ' + newProblem;
+        var newOption = document.createElement('option');
+        newOption.value = newOptionText;
+        newOption.text = newOptionText;
 
-    // Add the new option to the dropdown
-    var dropdown = document.getElementById('date');
-    dropdown.add(newOption);
+        // Add the new option to the dropdown
+        var dropdown = document.getElementById('date');
+        dropdown.add(newOption);
 
-    // Clear the input fields
-    document.getElementById('new-date').value = "";
-    document.getElementById('new-problem').value = "";
-}
+        // Clear the input fields
+        document.getElementById('new-date').value = "";
+        document.getElementById('new-problem').value = "";
+
+        // Save the new date to the server
+        const formData = new FormData();
+        formData.append('selectedDate', newOptionText); // Save the new date
+
+        fetch('/save_date', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Handle non-JSON errors here
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.message === 'Date saved successfully') {
+                alert('Date added successfully');
+                // Optionally, update the dropdown with the new date if not already added
+                populateDateDropdown();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error saving date:', error));
+    }
+
+
+    let selectedDate = ''; // Variable to store the selected date
+    
+
+    function changeSelectedDate() { 
+        const dropdown = document.getElementById('date');
+        selectedDate = dropdown.value;
+
+        console.log("Selected date:", selectedDate);
+        fetchFilesByDate(); // For testing purposes
+    }
+
+
+
     function uploadFile(fileInputId, apiUrl) {
         const fileInput = document.getElementById(fileInputId);
         const file = fileInput.files[0];
+        console.log("Selected date:", selectedDate);
 
         if (!file) {
             alert('No file selected.');
             return;
         }
 
+        if (!selectedDate) {
+            alert('No date selected.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('file', file);
         formData.append('filename', file.name);
+        formData.append('selectedDate', selectedDate); // Add the selected date to the form data
 
         fetch(apiUrl, {
             method: 'POST',
@@ -817,7 +876,102 @@
         .catch(error => console.error('Error:', error));
     }
 
+    function populateDateDropdown() {
+        fetch('/get_dates')
+            .then(response => response.json())
+            .then(data => {
+                const dateDropdown = document.getElementById('date');
+                dateDropdown.innerHTML = ''; // Clear previous options
 
+                // Add a default option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select Date/Problem';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                dateDropdown.appendChild(defaultOption);
+
+                data.forEach(date => {
+                    const option = document.createElement('option');
+                    option.value = date;
+                    option.textContent = date;
+                    dateDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching dates:', error));
+    }
+
+    function fetchFilesByDate() {
+        if (!selectedDate) {
+            alert("Please select a date.");
+            return;
+        }
+
+        // Fetch files from the backend based on the selected date
+        fetch(`/get_files_by_date?selectedDate=${selectedDate}`)
+            .then(response => response.json())
+            .then(data => {
+                const fileDisplay = document.getElementById("file-display");
+
+                // Clear previous files when the date is changed
+                fileDisplay.innerHTML = "";
+
+                // Handle error messages
+                if (data.message) {
+                    fileDisplay.innerHTML = `<p>${data.message}</p>`;
+                } else {
+                    const files = data.files;
+                    if (files.length > 0) {
+                        files.forEach(file => {
+                            // Replace backslashes with forward slashes
+                            const relativePath = file.file_path.replace(/\\/g, '/');
+
+                            // Create an absolute URL
+                            const absoluteURL = `http://127.0.0.1:5000/${relativePath}`;
+
+                            // Create a file element based on file type
+                            const fileElement = document.createElement("div");
+                            const fileExtension = file.file_name.split('.').pop().toLowerCase();
+
+                            // If the file is a PDF, display it in an iframe
+                            if (fileExtension === 'pdf') {
+                                fileElement.innerHTML = `<a href="/uploads/${file.file_path}" target="_blank">${file.file_name}</a>`;
+
+                            }
+                            // If the file is an image, display it with an <img> tag
+                            else if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+                                fileElement.innerHTML = `
+                                    <img src="${absoluteURL}" alt="${file.file_name}" width="300">
+                                    <p>${file.file_name}</p>
+                                `;
+                            }
+                            // For other files, provide a download link
+                            else {
+                                fileElement.innerHTML = `
+                                    <a href="${absoluteURL}" target="_blank">${file.file_name}</a>
+                                `;
+                            }
+
+                            // Append the file element to the display area
+                            fileDisplay.appendChild(fileElement);
+                        });
+                    } else {
+                        fileDisplay.innerHTML = "<p>No files available for this date.</p>";
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching files:', error);
+                document.getElementById("file-display").innerHTML = "<p>There was an error fetching the files.</p>";
+            });
+    }
+
+
+
+
+
+
+    window.onload = populateDateDropdown;
 
 </script>
 
