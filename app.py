@@ -1,5 +1,16 @@
 import os
 import json
+import datetime
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from werkzeug.utils import secure_filename
+from langchain.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.schema.output_parser import StrOutputParser
+from langchain.schema.runnable import RunnableLambda
+from flask_pymongo import PyMongo
+
+import os
+import json
 import traceback
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_from_directory, abort
 from werkzeug.utils import secure_filename
@@ -24,6 +35,9 @@ os.environ["GOOGLE_API_KEY"] = "AIzaSyDwa7fCt1DNhjJntr9mZlmw8eHzTyFevcA"
 with open("doctors.json", "r") as f:
     doctors_data = json.load(f)
 doctors_list = [i for i in doctors_data]
+
+with open('prescriptions.json') as json_file:
+    prescription_data = json.load(json_file)
 
 # Define the LangChain prompt template
 prompt = ChatPromptTemplate.from_template(
@@ -59,14 +73,23 @@ class Routes:
         self.app.add_url_rule('/confirm_doctor', 'confirm_doctor', self.confirm_doctor)
         self.app.add_url_rule('/form', 'form', self.form)
         self.app.add_url_rule('/start_appointment', 'start_appointment', self.start_appointment, methods=['POST'])
+        self.app.add_url_rule('/start_user', 'start_user', self.start_user, methods=['POST'])
         self.app.add_url_rule('/upload/medication', 'upload_medication', self.upload_medication, methods=['POST'])
         self.app.add_url_rule('/upload/test', 'upload_test', self.upload_test, methods=['POST'])
         self.app.add_url_rule('/prescription_summary', 'display_prescription', self.display_prescription)
         self.app.add_url_rule('/userlogin', 'userlogin', self.userlogin, methods=['GET', 'POST'])
-        self.app.add_url_rule('/get_files_by_date', 'get_files_by_date', self.get_files_by_date, methods=['GET'])
-        self.app.add_url_rule('/save_date', 'save_date', self.save_date, methods=['POST'])  # Save date
+        self.app.add_url_rule('/get_doctors', 'get_doctors', self.get_doctors)
+        self.app.add_url_rule('/test', 'test', self.test)
+        self.app.add_url_rule('/start_appointment2','start_appointment2',self.start_appointment2    , methods=['POST'])
         self.app.add_url_rule('/get_dates', 'get_dates', self.get_dates, methods=['GET'])
+        self.app.add_url_rule('/get_prescription_data/<date>', 'get_prescription_data', self.get_prescription_data, methods=['GET'])
+        self.app.add_url_rule('/nofollowup', 'nofollowup', self.nofollowup)
+        self.app.add_url_rule('/followup', 'followup', self.followup)
         self.app.add_url_rule('/uploads/<path:filename>', 'serve_file', self.serve_file, methods=['GET'])
+        self.app.add_url_rule('/get_files_by_date', 'get_files_by_date', self.get_files_by_date, methods=['GET'])
+        self.app.add_url_rule('/save_date', 'save_date', self.save_date, methods=['POST'])
+        self.app.add_url_rule('/get_dates2', 'get_dates2', self.get_dates2, methods=['GET'])
+
 
 
     def home(self):
@@ -86,18 +109,32 @@ class Routes:
     def useracc(self):
         return render_template('useracc.html')
     
-    def userlogin(self):
+    def test(self):
+     return render_template('test.html')
+    
+    def followup(self):
+     return render_template('confirm2.html')
+    
+    def nofollowup(self):
+     return render_template('test.html')
+
+    def get_doctors(self):
+        with open('doctors.json') as f:
+            doctors_data = json.load(f)
+        return jsonify(doctors_data)
+    
+    def start_user(self):
         if request.method == 'POST':
-            username1 = request.form.get('username_user')  # Use parentheses () with get
-            password1 = request.form.get('password_user')  # Use parentheses () with get
             
-            # Check if username and password match
-            if username1 == "admin1" and password1 == "password1":
-                return redirect(url_for('useracc'))
-            else:
-                # Display message if credentials are invalid
-                return "Invalid username or password"
+            return redirect(url_for('useracc'))
+            
+    
+    def userlogin(self):
+           
         return render_template('userlogin.html')
+    
+
+    
 
     def login(self):
         if request.method == 'POST':
@@ -237,7 +274,7 @@ class Routes:
            
 
     def display_prescription(self):
-        json_filename = 'prescription_summary.json'
+        json_filename = 'prescriptions.json'
         # Check if the JSON file exists
         if not os.path.exists(json_filename):
             # If the file doesn't exist, return an error page or message
@@ -248,11 +285,73 @@ class Routes:
             prescription_data = json.load(json_file)
         
         # Ensure the 'prescription' key exists in the JSON data
-        if not prescription_data.get("prescription"):
+        if not prescription_data.get("prescriptions"):
             return render_template('med-history.html', prescription={})
         
         # Pass the prescription data to the template
         return render_template('med-history.html', prescription=prescription_data['prescription'])
+    
+
+    def get_dates(self):
+        with open('prescriptions.json') as json_file:
+            prescription_data = json.load(json_file)
+
+        dates = list({item.get('date') for item in prescription_data if 'date' in item})
+        return jsonify(dates)
+
+    def get_prescription_data(self, date):
+        # Load the prescription data dynamically from the JSON file
+        with open('prescriptions.json') as json_file:
+            prescription_data = json.load(json_file)
+
+        # Fetch prescription data by date
+# Ensure each item has the 'date' key before trying to access it
+        prescription = next((item for item in prescription_data if 'date' in item and item['date'] == date), None)
+        return jsonify(prescription) if prescription else jsonify({"error": "Prescription data not found"}), 404
+    
+    def start_appointment2(self):
+        # Retrieve form data
+        med_help_id = request.form.get('med_help_id')
+        diagnosis = request.form.get('diagnosis')
+        date = request.form.get('date')
+        consultation_notes = request.form.get('consultation_notes')
+        medication_name = request.form.get('medication_name')
+        medication_dosage = request.form.get('medication_dosage')
+        medication_frequency = request.form.get('medication_frequency')
+        medication_duration = request.form.get('medication_duration')
+        followup_schedule = request.form.get('followup_schedule')
+
+        # Create a dictionary to store the form data
+        appointment_data = {
+            'date': date,
+            'med_help_id': med_help_id,
+            'diagnosis': diagnosis,
+            'consultation_notes': consultation_notes,
+            'medication_name': medication_name,
+            'medication_dosage': medication_dosage,
+            'medication_frequency': medication_frequency,
+            'medication_duration': medication_duration,
+            'followup_schedule': followup_schedule
+        }
+
+        # Write the data to a JSON file
+        try:
+            # Load existing data from the file if it exists
+            with open('prescriptions.json', 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            # If the file doesn't exist, initialize with an empty list
+            data = []
+
+        # Append the new appointment data to the list
+        data.append(appointment_data)
+
+        # Save the updated data back to the file
+        with open('prescriptions.json', 'w') as file:
+            json.dump(data, file, indent=4)
+
+        # No return statement needed since we are just saving the data in a file
+        return "Appointment data saved successfully!"
     
     def get_files_by_date(self):
         # Retrieve the selected date from the request parameters
@@ -299,7 +398,7 @@ class Routes:
             return jsonify({'message': 'Internal Server Error', 'error': str(e)}), 500  # Return 500 with error details
 
     
-    def get_dates(self):
+    def get_dates2(self):
         try:
             # Query the MongoDB database to get all dates
             dates_cursor = mongo.db.threads.find({}, {'_id': 0, 'date': 1})  # Exclude the `_id` field
@@ -330,6 +429,7 @@ class Routes:
             print(f"Error: {str(e)}")
             traceback.print_exc()  # Print the full traceback to the console
             abort(500)  # Return a 500 error if something goes wrong
+
 
 
 # Instantiate the Routes class

@@ -1,0 +1,24 @@
+[
+    {
+        "date": "12042024",
+        "med_help_id": "00001",
+        "diagnosis": "fever",
+        "consultation_notes": "rest and medicine",
+        "medication_name": "paracitamol",
+        "medication_dosage": "3 times",
+        "medication_frequency": "3 times",
+        "medication_duration": "2 weeks",
+        "followup_schedule": "next week"
+    },
+    {
+        "date": "15042024",
+        "med_help_id": "0002",
+        "diagnosis": "knee pain",
+        "consultation_notes": "take rest",
+        "medication_name": "painkiller",
+        "medication_dosage": "30ml",
+        "medication_frequency": "3times",
+        "medication_duration": "3 weeks",
+        "followup_schedule": "next week"
+    }
+]
